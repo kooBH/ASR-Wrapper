@@ -21,8 +21,10 @@ if __name__ == '__main__' :
     output_path = args.output + '/' + str(datetime.now().strftime("%Y%m%d-%M-%S.txt"))
 
     # ground truth
-    script = open(script_path)
+    script = open(script_path,encoding='UTF8')
     ground_truth = script.readlines()[0]
+    # elim dot
+    ground_truth = ground_truth.replace('.','')
     script.close()
 
     # ASR
