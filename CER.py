@@ -39,7 +39,7 @@ if __name__ == '__main__' :
     ret.write("+ script : %s\n"%args.script)
     ret.write("+ CER\n")
     ret.write("%f\n"%cer)
-    ret.write("+ Ground Truth %s")
+    ret.write("+ Ground Truth\n")
     ret.write(ground_truth + "\n")
     ret.write("+ ASR %s result\n" % args.type)
     ret.write(ASR_result + "\n")
