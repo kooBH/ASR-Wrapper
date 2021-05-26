@@ -131,3 +131,6 @@ dmypy.json
 # private
 data/
 key/
+
+# output file
+*.txt
