@@ -18,7 +18,7 @@ if __name__ == '__main__' :
     # path
     audio_path = args.input
     script_path =  args.script
-    output_path = args.output + '/' + str(datetime.now().strftime("%Y%m%d-%M-%S.txt"))
+    output_path = args.output + '/' + str(datetime.now().strftime("%Y%m%d-%H-%M-%S.txt"))
 
     # ground truth
     script = open(script_path,encoding='UTF8')
