@@ -2,6 +2,7 @@ import ETRI
 import metric
 import argparse
 from datetime import datetime
+import os.path
 
 if __name__ == '__main__' : 
     parser = argparse.ArgumentParser()
@@ -28,7 +29,11 @@ if __name__ == '__main__' :
     script.close()
 
     # ASR
-    ASR_result = ETRI.ASR(audio_path)
+    if os.path.isfile(audio_path):
+	    ASR_result = ETRI.ASR(audio_path)
+    else:
+	    print('ERROR::No file : ' + audio_path)
+	    return
 
     # Error
     CER = metric.CharacterErrorRate()
