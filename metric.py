@@ -59,6 +59,25 @@ class CharacterErrorRate(ErrorRate):
         ## rule update 2021.08.04
         s1 = s1.replace(',', '')
         s2 = s2.replace(',', '')
+        
+        ## rule update 2021.08.31
+        s1 = s1.replace('.','')
+        s1 = s1.replace(',','')
+        s1 = s1.replace('?','')
+        s1 = s1.replace('!','')
+        s1 = s1.replace('“','')
+        s1 = s1.replace('”','')
+        s1 = s1.replace("'","")
+        s1 = s1.replace('"','')
+
+        s2 = s2.replace('.','')
+        s2 = s2.replace(',','')
+        s2 = s2.replace('?','')
+        s2 = s2.replace('!','')
+        s2 = s2.replace('“','')
+        s2 = s2.replace('”','')
+        s2 = s2.replace("'","")
+        s2 = s2.replace('"','')
 
         # if '_' in sentence, means subword-unit, delete '_'
         if '_' in s1:
