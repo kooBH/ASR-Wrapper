@@ -30,10 +30,10 @@ if __name__ == '__main__' :
 
     # ASR
     if os.path.isfile(audio_path):
-	    ASR_result = ETRI.ASR(audio_path)
+	ASR_result = ETRI.ASR(audio_path)
     else:
-	    print('ERROR::No file : ' + audio_path)
-	    return
+	print('ERROR::No file : ' + audio_path)
+        return
 
     # Error
     CER = metric.CharacterErrorRate()
