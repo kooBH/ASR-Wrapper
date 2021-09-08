@@ -37,7 +37,7 @@ if __name__ == '__main__' :
 	ASR_result = ASR_result.replace('‘','')
  	ASR_result = ASR_result.replace('’','')
     else:
-	print('ERROR::No file : ' + audio_path)
+        print('ERROR::No file : ' + audio_path)
         return
 
     # Error
