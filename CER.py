@@ -30,12 +30,12 @@ if __name__ == '__main__' :
 
     # ASR
     if os.path.isfile(audio_path):
-	ASR_result = ETRI.ASR(audio_path)
-	# input data is not enough to recognize
-	ASR_result= ASR_result.replace('Handler didnt call response()','') 
-	# adjust with ground truth
-	ASR_result = ASR_result.replace('‘','')
- 	ASR_result = ASR_result.replace('’','')
+        ASR_result = ETRI.ASR(audio_path)
+        # input data is not enough to recognize
+        ASR_result= ASR_result.replace('Handler didnt call response()','') 
+        # adjust with ground truth
+        ASR_result = ASR_result.replace('‘','')
+        ASR_result = ASR_result.replace('’','')
     else:
         print('ERROR::No file : ' + audio_path)
         return
