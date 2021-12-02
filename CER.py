@@ -36,7 +36,7 @@ if __name__ == '__main__' :
         # adjust with ground truth
     else:
         print('ERROR::No file : ' + audio_path)
-        return
+        exit(-1)
 
     # Error
     CER = metric.CharacterErrorRate()
