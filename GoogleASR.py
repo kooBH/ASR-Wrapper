@@ -1,11 +1,11 @@
 # pip install --upgrade google-api-python-client
 # pip install google-cloud-speech
 
-import os
+import os,glob
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "key/google_key.json"
 
 def transcribe_streaming(stream_file):
-    print("transcribe_streaming")
+    print("streaming {}".format(stream_file))
     """Streams transcription of the given audio file."""
     import io
     from google.cloud import speech
@@ -42,23 +42,27 @@ def transcribe_streaming(stream_file):
         config=streaming_config,
         requests=requests,
     )
-
-    for response in responses:
-        # Once the transcription has settled, the first result will contain the
-        # is_final result. The other results will be for subsequent portions of
-        # the audio.
-        for result in response.results:
-            print("{} ".format(result.is_final),end = "")
-            print("{:.2f}:".format(result.stability),end = "")
-            alternatives = result.alternatives
-            # The alternatives are ordered from most likely to least.
-            for i, alternative in enumerate(alternatives):
-                print(u"{}|".format(alternative.transcript),end = "")
-            print("||",end = "")
-        print("")
+    
+    name_file = stream_file.split("\\")[-1]
+    id_file = name_file.split(".")[0]
+    with open("output/{}_stream.txt".format(id_file),"w") as f : 
+        for response in responses:
+            # Once the transcription has settled, the first result will contain the
+            # is_final result. The other results will be for subsequent portions of
+            # the audio.
+            for result in response.results:
+                #print("{} ".format(result.is_final),end = "")
+                #print("{:.2f}:".format(result.stability),end = "")
+                alternatives = result.alternatives
+                # best only
+                f.write(u"{}| ".format(alternatives[0].transcript))
+                print(u"{}| ".format(alternatives[0].transcript),end = "")
+                #print("||",end = "")
+            f.write("\n")
+            print("")
 
 def transcribe_file(speech_file):
-    print("transcribe_file")
+    print("file {}".format(speech_file))
     """Transcribe the given audio file."""
     from google.cloud import speech
     import io
@@ -76,16 +80,21 @@ def transcribe_file(speech_file):
     )
 
     response = client.recognize(config=config, audio=audio)
-
-    # Each result is for a consecutive portion of the audio. Iterate through
-    # them to get the transcripts for the entire audio file.
-    for result in response.results:
-        # The first alternative is the most likely one for this portion.
-        print("Transcript: {}".format(result.alternatives[0].transcript))
+    name_file = speech_file.split("\\")[-1]
+    id_file = name_file.split(".")[0]
+    with open("output/{}_file.txt".format(id_file),"w") as f : 
+        # Each result is for a consecutive portion of the audio. Iterate through
+        # them to get the transcripts for the entire audio file.
+        for result in response.results:
+            # The first alternative is the most likely one for this portion.
+            f.write(u"{}".format(result.alternatives[0].transcript))
+            print(u"{}".format(result.alternatives[0].transcript))
+        f.write("\n")
 
 
 if __name__ == "__main__": 
-    path = "data/F01_050C0103_BUS_clean.wav"
-    print(path)
-    transcribe_streaming(path)
-    transcribe_file(path)
+    list_target = glob.glob(os.path.join("data","Disney_test_streaming_ch","*.wav"))
+    print(len(list_target))
+    for path in list_target : 
+        transcribe_streaming(path)
+        transcribe_file(path)
